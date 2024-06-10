@@ -1,2 +1,1 @@
-# EserciziPitoneSpagnolo
-Esercizi di python
+Esercizi del pyhtone
