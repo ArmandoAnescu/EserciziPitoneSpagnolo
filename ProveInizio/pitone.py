@@ -1,7 +1,7 @@
 def Menu():
  x=1  #metodo menu dove vengono mostrate le opzioni disonibili
  scelta=2
- while scelta >1:
+ while scelta !=4:
     print("======Menu=======")
     for x ,opzione in enumerate( listaopzioni,start=1):
           print(f"[{x}] {opzione} ")#Stampa opzioni
