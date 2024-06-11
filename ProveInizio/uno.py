@@ -1,0 +1,74 @@
+class Carta:
+    colore=""
+    num=0
+    csimb=""
+    def __init__(self):
+        import random
+        valore=random.randint(0,10)#se 0 nero, 1=rosso 2=blu 3=verde 4=giallo
+        if valore==0:
+            self.colore="nero"
+        elif valore==1:
+            self.colore="rosso"
+        elif valore==2:
+            self.colore="blu"
+        elif valore==3:
+            self.colore="verdes"
+        elif valore==4:
+            self.colore="giallo"
+        if self.colore!= "nero":
+            self.num=random.randint(1,9)
+        else:
+            self.csimb=random.choice(["+4","+2","blocca","cambio colore"])
+def GeneraCarteInizio():
+    carte=[]
+    for i in range(7):
+        cartePlayer.append(Carta())
+    for i in range(7):
+        carteNemico.append(Carta())
+def PescaCarta():
+    carta=Carta()
+    return carta
+def Gioco():
+    cartaInizio=Carta()
+    turnoNemico=False
+    while cartaInizio.colore=="nero":
+        cartaInizio=Carta()
+#####################################################
+    while len(cartePlayer) !=0 or len(carteNemico!=0):
+        print("Scegli una carta dal tuo mazzo")
+        turnoGiocatore=True
+        while turnoGiocatore:
+             for i in range(len(cartePlayer)):
+                print(f"{i}",cartePlayer[i].colore,cartePlayer[i].num,cartePlayer[i].csimb)
+        print("Pesca",len(cartePlayer))
+        scelta=int(input("-->"))
+
+        if scelta>=0 and scelta<len(cartePlayer):
+            if cartePlayer[scelta].colore==cartaInizio.colore or cartePlayer[scelta].colore=="nero":
+                cartaInizio=cartePlayer.pop(scelta)
+                turnoGiocatore=False
+                turnoNemico=True
+            else:
+                print("Carta non valida riprova")
+        else:
+            cartePlayer.append(Carta())
+######################################################
+        while turnoNemico:
+             for i in range(len(cartePlayer)):
+                print(f"{i}",cartePlayer[i].colore,cartePlayer[i].num,cartePlayer[i].csimb)
+        import random
+        scelta=random.randint(0,len(carteNemico))
+        if scelta>=0 and scelta<len(cartePlayer):
+            if carteNemico[scelta].colore==cartaInizio.colore or carteNemico[scelta].colore=="nero":
+                cartaInizio=carteNemico.pop(scelta)
+                turnoGiocatore=True
+                turnoNemico=False
+            else:
+                 print("Carta non valida riprova")
+        else:
+            carteNemico.append(Carta())
+       
+cartePlayer=[]
+carteNemico=[]
+GeneraCarteInizio()
+Gioco()
