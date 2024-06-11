@@ -35,6 +35,7 @@ def amicaElfa():
     print("Un famoso bandito Smazzullo Aleandro decide di rapinarti ma lek Apalle usa un incatesimo anti morroni(I morroni sono le persone che vengono dal sud del continente, solitamente ladri)")
     print("Il bandito prova a scappare ma viene catturato lo sceriffo S.M.Elon, che ringrazia Lek per l'aiuto, c'è anche un uomo di mezza età altro quanto un tronco tagliato si chiama Splinter Tumiliano")
     print("Splinter ti chiede se hai mai visto una torta rossa e va in crisi isterica, S.M.Elon ride e fa una batuta orribile, ti cheidi come questi individui siano addetti della sicurezza")
+    print("Anyway, decidi di rientrare in casa e fare la doccia.")
 def finaleNormale():
     print("hai passato la tua vita in tranquillità e hai avauto dei figli")
 def Risveglio():
