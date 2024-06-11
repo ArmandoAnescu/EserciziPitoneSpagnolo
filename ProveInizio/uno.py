@@ -22,6 +22,9 @@ class Carta:
             self.num=random.choice(options)
         else:
             self.csimb=random.choice(["+4","+2","cambio colore"])
+def pesca(num,list):
+  for i in range(num):
+      list.append(Carta())
 def GeneraCarteInizio():
     carte=[]
     for i in range(7):
@@ -43,7 +46,7 @@ def Gioco():
         turnoGiocatore=True
         while turnoGiocatore:
             for i in range(len(cartePlayer)):
-                if cartePlayer[i].num!=0:
+                if isinstance(cartePlayer[i].num,int):
                     print(f"{i}",cartePlayer[i].colore,cartePlayer[i].num)
                 else:
                     print(f"{i}",cartePlayer[i].colore,cartePlayer[i].csimb)
@@ -51,13 +54,18 @@ def Gioco():
             scelta=int(input("-->"))
             if scelta>=0 and scelta<len(cartePlayer):
                 if cartePlayer[scelta].colore==cartaInizio.colore or cartePlayer[scelta].colore=="nero":
+                    if isinstance(cartePlayer[scelta].num,int) or cartePlayer[scelta].csimb!="":
+                        if cartePlayer[scelta].num=="+2" or cartePlayer[scelta].csimb=="+4":
+                            pesca(num=int(cartePlayer[i].csimb.replace("+","")),list=cartePlayer)
+                        else:
+                            print()
                     cartaInizio=cartePlayer.pop(scelta)
                     turnoGiocatore=False
                     turnoNemico=True
                 else:
                     print("Carta non valida riprova")
             else:
-                cartePlayer.append(Carta())
+                cartaInizio=cartePlayer[scelta]
 ##########################################################
         while turnoNemico:
             import random
