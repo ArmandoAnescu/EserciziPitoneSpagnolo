@@ -1,10 +1,13 @@
+NUM_MIN_COLOR=0
+NUM_MAX_COLOR=4
 class Carta:
     colore=""
     num=0
     csimb=""
     def __init__(self):
         import random
-        valore=random.randint(0,10)#se 0 nero, 1=rosso 2=blu 3=verde 4=giallo
+        valore=random.randint(NUM_MIN_COLOR,NUM_MAX_COLOR)#se 0 nero, 1=rosso 2=blu 3=verde 4=giallo
+        options = [0,1, 2, 3, 4, 5,6,7,8,9,"+2", "stop", "change rotation"]
         if valore==0:
             self.colore="nero"
         elif valore==1:
@@ -16,7 +19,7 @@ class Carta:
         elif valore==4:
             self.colore="giallo"
         if self.colore!= "nero":
-            self.num=random.randint(1,9)
+            self.num=random.choice(options)
         else:
             self.csimb=random.choice(["+4","+2","cambio colore"])
 def GeneraCarteInizio():
@@ -40,7 +43,7 @@ def Gioco():
         turnoGiocatore=True
         while turnoGiocatore:
             for i in range(len(cartePlayer)):
-                if cartePlayer[i].colore!="":
+                if cartePlayer[i].num!=0:
                     print(f"{i}",cartePlayer[i].colore,cartePlayer[i].num)
                 else:
                     print(f"{i}",cartePlayer[i].colore,cartePlayer[i].csimb)
