@@ -1,3 +1,4 @@
+#Blocco Classe
 class Dado:
     nPunti=0
     def __init__(self,n):
@@ -6,6 +7,8 @@ class Dado:
     def generaFaccia(self):
         import random
         self.facciaUscita= random.randint(1,self.nFaccie)
+#Fine blocco
+#Blocco metodo Gioco
 def Gioco(p1,p2,nRound):
     while nRound>0:
         p1.generaFaccia()
@@ -26,9 +29,8 @@ def Gioco(p1,p2,nRound):
         print("Premi invio per continuare!!!")
         input()
         nRound-=1
-
-        
-
+#Fine blocco
+#Blocco Main
 p1=Dado(n=6)
 p2=Dado(n=6)
 print("Quanti round volete fare??")
@@ -40,3 +42,4 @@ elif p2.nPunti>p1.nPunti:
     print("Vince la partita giocatore 2")
 else:
     print("La partita è pareggio")
+#Fine blocco
