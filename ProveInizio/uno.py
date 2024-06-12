@@ -37,11 +37,13 @@ def Gioco():
     while cartaInizio.colore=="nero":
         cartaInizio=Carta()
 ########################################################
-    while len(cartePlayer) !=0 or len(carteNemico!=0):
+    while len(cartePlayer) !=0 and len(carteNemico)!=0:
         print("Scegli una carta dal tuo mazzo")
         print("carta sul campo=",cartaInizio.colore,cartaInizio.num)
         turnoGiocatore=True
-        while turnoGiocatore:
+        notStopPlayer=True
+        notStopNemico=True
+        while turnoGiocatore and notStopPlayer:
             for i in range(len(cartePlayer)):
                 if isinstance(cartePlayer[i].num,int):
                     print(f"{i}",cartePlayer[i].colore,cartePlayer[i].num)
@@ -52,10 +54,12 @@ def Gioco():
             if scelta>=0 and scelta<len(cartePlayer):
                 if cartePlayer[scelta].colore==cartaInizio.colore or cartePlayer[scelta].colore=="nero" or cartaInizio.colore=="nero":
                     if isinstance(cartePlayer[scelta].num,int):
-                        if cartePlayer[scelta].num=="+2" or cartePlayer[scelta].num=="+4":
-                            pesca(num=int(cartePlayer[i].csimb.replace("+"," ")),list=carteNemico)
-                        else:
-                            print()
+                        notStopNemico=True
+                    elif cartePlayer[scelta].num=="+2" or cartePlayer[scelta].num=="+4":
+                        pesca(num=int(cartePlayer[i].csimb.replace("+"," ")),list=carteNemico)
+                        notStopNemico=True
+                    elif cartePlayer[scelta].num=="stop":
+                        notStopNemico=False
                     cartaInizio=cartePlayer.pop(scelta)
                     turnoGiocatore=False
                     turnoNemico=True
@@ -65,16 +69,20 @@ def Gioco():
                 cartePlayer.append(Carta())
                 
 ##########################################################
-        while turnoNemico:
+        while turnoNemico and notStopNemico:
             import random
             scelta=random.randint(0,len(carteNemico))
             if scelta>=0 and scelta<len(cartePlayer):
                 if carteNemico[scelta].colore==cartaInizio.colore or carteNemico[scelta].colore=="nero" or cartaInizio.colore=="nero":
                     if isinstance(cartePlayer[scelta].num,int):
-                        if cartePlayer[scelta].num=="+2" or cartePlayer[scelta].num=="+4":
-                            pesca(num=int(cartePlayer[i].csimb.replace("+"," ")),list=carteNemico)
-                        else:
-                            print()
+                        notStopNemico=True
+                    elif cartePlayer[scelta].num=="+2" or cartePlayer[scelta].num=="+4":
+                        pesca(num=int(carteNemico[scelta].csimb.replace("+"," ")),list=carteNemico)
+                        notStopNemico=True
+                    elif cartePlayer[scelta].num=="stop":
+                        notStopPlayer=False
+                    turnoGiocatore=True
+                    turnoNemico=False
                     cartaInizio=carteNemico.pop(scelta)
                     turnoGiocatore=True
                     turnoNemico=False
