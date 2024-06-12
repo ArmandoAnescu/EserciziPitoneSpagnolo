@@ -5,8 +5,10 @@
 #
 class Level:
     expAccumulated=0
-    def __init__(self,livello):
+    evolutionLvl=[]
+    def __init__(self,livello,lvlEvo):
         self.level=livello
+        self.evolutionLvl=lvlEvo
     def CalcolaLevelEsp(self,lvlDefeated):
         import math
         expReceived=int(math.pow(lvlDefeated^3)/12)
@@ -16,6 +18,10 @@ class Level:
             self.level +=1
         else:
             print(f"Mancano {expNextLvl-self.expAccumulated} per raggiungere il prossimo livello")
+    def RareCandy(self):
+        self.level+=1
+        self.expAccumulated=0
+    
         
 class Move:
     moveName=""
@@ -64,7 +70,14 @@ class Pokemon:
     def printMoves(self):
         for i in range(len(self.movesList)):
             print(f"{i+1}. {self.movesList[i].moveName}")
-starter=[Pokemon("Treeko","Erba",20,20,20,moves=[Move("Azione","normale",20),Move("Semitraglia","erba","35")])]
+    def CheckEvolution(self):
+        for lvl in range(len(self.lvl.evolutionLvl)):
+            if self.lvl.level==self.lvl.evolutionLvl[lvl]:
+                print(f"Cosa!?{self.name} si sta evolvendo!")
+                print("Oops, dimenticato di integrare le evoluzioni RIP")
+
+starter=[Pokemon("Treeko","Erba",20,20,20,moves=[Move("Azione","normale",20),Move("Semitraglia","erba","35")],level=Level(16,[16,36]))]
+
 urPkMn=[]
 oppPkMn=[]
 opzioni=["Lotta","Vedi i miei Pkmn","Aggiungi Pkmn","RimuoviPkmn","Esci"]
@@ -128,9 +141,16 @@ def createPokemon():
         moveType=input(f"tipo della mossa {i+1}->")
         moveDmg=int(input(f"danno della mossa {i+1}->"))
         moves.append(Move(moveName,moveType,moveDmg))
-    return Pokemon(name,type,hp,attack,defense,moves)
+    print("A che livello è il tuo pokemon")
+    level=int(input("->"))
+    print("A che livello si evolve?:")
+    evolvl=int(input())
+    lvl=Level(level,evolvl)
+    return Pokemon(name,type,hp,attack,defense,moves,lvl)
 nPkmn=int(input("Quanti pokemon vuoi? Max 6:"))
 for i in range(nPkmn):
     urPkMn.append(createPokemon())
+test=starter[0]
+test.CheckEvolution()
 Menu()
             
