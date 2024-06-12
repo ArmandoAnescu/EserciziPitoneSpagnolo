@@ -150,7 +150,5 @@ def createPokemon():
 nPkmn=int(input("Quanti pokemon vuoi? Max 6:"))
 for i in range(nPkmn):
     urPkMn.append(createPokemon())
-test=starter[0]
-test.CheckEvolution()
 Menu()
             
