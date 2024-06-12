@@ -1,9 +1,21 @@
 #to do:
-#Aggiungi Atk.sp Def.Sp Spd
 #Precisione
 #Pokemon predefinit, pokemon già fatti e con moveset predefinito, sistema di scelta
 #Level Up and Evolution System, un sistema degli exp che permette a un PkMn di evolversi al livello predefinito ex:charmeleon in charizard al 36
 #
+class Level:
+    expAccumulated=0
+    def __init__(self,livello):
+        self.level=livello
+    def CalcolaLevelEsp(self,expReceived):
+        import math
+        expNextLvl=int (((math.sqrt(self.level)/2)*10)*8)
+        self.expAccumulated +=expReceived
+        if expNextLvl== self.expAccumulated:
+            self.level +=1
+        else:
+            print(f"Mancano {expNextLvl-self.expAccumulated} per raggiungere il prossimo livello")
+        
 class Move:
     moveName=""
     def __init__(self, name, type, Dmg):
@@ -28,11 +40,13 @@ class Stats:
         
 class Pokemon:
     movesList=[]
-    def __init__(self, name, type, hp, attack, defense,moves):
+    
+    def __init__(self, name, type, hp, attack, defense,moves,level):
         self.name = name
         self.type = type
         self.stats=Stats(HP=hp,Atk=attack,Def=defense)
         self.movesList=moves
+        self.lvl=level
         
     def newMove(self,move):
         if(len(self.movesList)==4):
