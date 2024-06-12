@@ -56,7 +56,7 @@ def Gioco():
                     if isinstance(cartePlayer[scelta].num,int):
                         notStopNemico=True
                     elif cartePlayer[scelta].num=="+2" or cartePlayer[scelta].num=="+4":
-                        pesca(num=int(cartePlayer[i].csimb.replace("+"," ")),list=carteNemico)
+                        pesca(num=int(cartePlayer[i].num),list=carteNemico)
                         notStopNemico=True
                     elif cartePlayer[scelta].num=="stop":
                         notStopNemico=False
@@ -70,14 +70,12 @@ def Gioco():
                 
 ##########################################################
         while turnoNemico and notStopNemico:
-            import random
-            scelta=random.randint(0,len(carteNemico))
-            if scelta>=0 and scelta<len(cartePlayer):
+            for scelta in range(len(carteNemico)):
                 if carteNemico[scelta].colore==cartaInizio.colore or carteNemico[scelta].colore=="nero" or cartaInizio.colore=="nero":
                     if isinstance(cartePlayer[scelta].num,int):
                         notStopNemico=True
                     elif cartePlayer[scelta].num=="+2" or cartePlayer[scelta].num=="+4":
-                        pesca(num=int(carteNemico[scelta].csimb.replace("+"," ")),list=carteNemico)
+                        pesca(num=int(carteNemico[scelta].num),list=carteNemico)
                         notStopNemico=True
                     elif cartePlayer[scelta].num=="stop":
                         notStopPlayer=False
