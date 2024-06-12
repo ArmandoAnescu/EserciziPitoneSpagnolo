@@ -67,25 +67,24 @@ def Gioco():
                     print("Carta non valida riprova")
             elif scelta==len(cartePlayer):
                 cartePlayer.append(Carta())
-                
 ##########################################################
         while turnoNemico and notStopNemico:
             for scelta in range(len(carteNemico)):
                 if carteNemico[scelta].colore==cartaInizio.colore or carteNemico[scelta].colore=="nero" or cartaInizio.colore=="nero":
-                    if isinstance(cartePlayer[scelta].num,int):
+                    if isinstance(carteNemico[scelta].num,int):
                         notStopNemico=True
-                    elif cartePlayer[scelta].num=="+2" or cartePlayer[scelta].num=="+4":
-                        pesca(num=int(carteNemico[scelta].num),list=carteNemico)
+                    elif carteNemico[scelta].num=="+2" or carteNemico[scelta].num=="+4":
+                        pesca(num=int(carteNemico[scelta].num),list=cartePlayer)
                         notStopNemico=True
-                    elif cartePlayer[scelta].num=="stop":
+                    elif carteNemico[scelta].num=="stop":
                         notStopPlayer=False
                     turnoGiocatore=True
                     turnoNemico=False
                     cartaInizio=carteNemico.pop(scelta)
                     turnoGiocatore=True
                     turnoNemico=False
-            else:
-                carteNemico.append(Carta())
+                    break
+            carteNemico.append(Carta())
 ##########################################################
 cartePlayer=[]
 carteNemico=[]
