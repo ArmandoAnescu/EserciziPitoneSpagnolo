@@ -1,4 +1,4 @@
-#UNO
+# UNO
 
 Regole:
 
@@ -16,6 +16,6 @@ Regole:
 
 -quando scrivi il colore quando ti chiede il colore controlla di aer commesso errore o il gioco fa bye bye
 
-#UNO
+# UNO
 
 Buon divertimento
