@@ -65,6 +65,7 @@ def Gioco():
                         notStopNemico=False
                     elif cartePlayer[scelta].num=="cambio colore":
                         cartaInizio.colore=input("Scegli un colore: ")
+                        cartePlayer.pop(scelta)
                     cartaInizio=cartePlayer.pop(scelta)
                     turnoGiocatore=False
                     turnoNemico=True
@@ -87,6 +88,7 @@ def Gioco():
                         notStopPlayer=False
                     elif carteNemico[scelta].num=="cambio colore":
                         cartaInizio.colore=random.choice(["rosso","verde","blu","giallo"])
+                        cartePlayer.pop(scelta)
                     turnoGiocatore=True
                     turnoNemico=False
                     cartaInizio=carteNemico.pop(scelta)
