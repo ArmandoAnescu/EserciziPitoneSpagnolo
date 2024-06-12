@@ -17,12 +17,12 @@ class Stats:
         self.Def=Def
         self.SpAtk=Atk+((Atk*110)/100)
         self.SpDef=Def+((Def*110)/100)
-    def printStata(self):
+    def printStats(self):
         print(f"HP: {self.HP}")
-        print(f"Attack: {self.Atk}")
-        print(f"Defense: {self.Def}")
-        print(f"Special Attack: {self.SpAtk}")
-        print(f"Special Defense: {self.SpDef}")
+        print(f"Attacco: {self.Atk}")
+        print(f"Difesa: {self.Def}")
+        print(f"Attacco Speciale: {self.SpAtk}")
+        print(f"Difesa Speciale: {self.SpDef}")
 class Pokemon:
     movesList=[]
     def __init__(self, name, type, hp, attack, defense,moves):
@@ -41,9 +41,17 @@ class Pokemon:
             self.movesList.append(move)
         else:
             self.movesList.append(move)
+    def printMoves(self):
+        for i in range(len(self.movesList)):
+            print(f"{i+1}. {self.movesList[i].moveName}")
 urPkMn=[]
 oppPkMn=[]
 opzioni=["Lotta","Vedi i miei Pkmn","Aggiungi Pkmn","RimuoviPkmn","Esci"]
+def Visualizza(lista):
+    for i in range(len(lista)):
+        print(f"{i+1}. {lista[i].name} {lista[i].type}")
+        print(f"{lista[i].stats.printStats()}")
+        print(f"{lista[i].printMoves()}")
 def Menu():
     while True:
         print("cosa vuoi fare?")
@@ -53,8 +61,7 @@ def Menu():
         if choice==1:
             print("Scusa funzione non disponibile")
         elif choice==2:
-            for i in range(len(urPkMn)):
-                print(f"{i+1}. {urPkMn[i].name} {urPkMn[i].type}")
+            Visualizza(urPkMn)
         elif choice ==3:
             if len(urPkMn)<5:
                 urPkMn.append(createPokemon())
