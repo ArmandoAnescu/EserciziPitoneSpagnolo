@@ -8,9 +8,13 @@ Puoi inseire qualsiasi pokemon esistente con le mosse che vuoi o scegliere tra q
 a pikachu lanciafiamme.
 Spero sia di vostro gradimento se volete aiutarmi o corregere un mio errore basta che facciate una pull request e mi dite cosa aggiungere/corregere, se volete aggiungere pokemon alla lista siete liberi.
 Spero che il gioco sia di vostro gradimento.
+
 mancano:
+
   Livelli
+  
   evoluzioni
+  
   sistema di combattimento
     calcolo dei danni in base a res e weakness ecc
   
