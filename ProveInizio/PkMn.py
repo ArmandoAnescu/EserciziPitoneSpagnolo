@@ -10,6 +10,7 @@ class Move:
         self.moveName=name
         self.movetype=type
         self.moveDmg=Dmg
+        
 class Stats:
     def __init__(self, HP, Atk, Def):
         self.HP=HP
@@ -17,12 +18,14 @@ class Stats:
         self.Def=Def
         self.SpAtk=Atk+((Atk*110)/100)
         self.SpDef=Def+((Def*110)/100)
+        
     def printStats(self):
         print(f"HP: {self.HP}")
         print(f"Attacco: {self.Atk}")
         print(f"Difesa: {self.Def}")
         print(f"Attacco Speciale: {self.SpAtk}")
         print(f"Difesa Speciale: {self.SpDef}")
+        
 class Pokemon:
     movesList=[]
     def __init__(self, name, type, hp, attack, defense,moves):
@@ -30,6 +33,7 @@ class Pokemon:
         self.type = type
         self.stats=Stats(HP=hp,Atk=attack,Def=defense)
         self.movesList=moves
+        
     def newMove(self,move):
         if(len(self.movesList)==4):
             print("non puoi più aggiungere mosse")
@@ -41,17 +45,38 @@ class Pokemon:
             self.movesList.append(move)
         else:
             self.movesList.append(move)
+            
     def printMoves(self):
         for i in range(len(self.movesList)):
             print(f"{i+1}. {self.movesList[i].moveName}")
+starter=[Pokemon("Treeko","Erba",20,20,20,moves=[Move("Azione","normale",20),Move("Semitraglia","erba","35")])]
 urPkMn=[]
 oppPkMn=[]
 opzioni=["Lotta","Vedi i miei Pkmn","Aggiungi Pkmn","RimuoviPkmn","Esci"]
+
 def Visualizza(lista):
     for i in range(len(lista)):
         print(f"{i+1}. {lista[i].name} {lista[i].type}")
         print(f"{lista[i].stats.printStats()}")
         print(f"{lista[i].printMoves()}")
+        
+def RimuoviPkMn(lista):
+    print("ATTENZIONE! Sei sicuro di voler liberare questo pokemon? L'esperienza accumulata verra persa insieme al pokemon y/n:")
+    scelta=input()
+    if scelta=="y" or scelta=="si" or scelta=="yes" or scelta=="sì":
+        remove=input("inserisci il nome del pokemon da rimuovere:")
+        for i in lista:
+            if i.name==remove:
+                lista.remove(i)
+                print("Rimozione avvenuta con successo!!")
+                return
+        print("pokemon non trovato")
+        return 0
+    else:
+        print("Operazione annullata")
+        return 1
+    
+        
 def Menu():
     while True:
         print("cosa vuoi fare?")
@@ -68,7 +93,7 @@ def Menu():
             else:
                 print("hai già 6 pokemon non puoi averne di più")
         elif choice==4:
-            print("scusa funzione non disponibile")
+             RimuoviPkMn()
         elif choice==5:
             break
         else:
