@@ -34,11 +34,11 @@ class Stats:
     hpBar=0
     def __init__(self, HP, Atk, Def):
         self.HP=HP
-        self.hpBar=HP
+        self.hpBar=int(HP)
         self.Atk=Atk
         self.Def=Def
-        self.SpAtk=Atk+((Atk*110)/100)
-        self.SpDef=Def+((Def*110)/100)
+        self.SpAtk=int(Atk+((Atk*110)/100))
+        self.SpDef=int(Def+((Def*110)/100))
         
     def printStats(self):
         print(f"HP: {self.HP}")
@@ -70,6 +70,8 @@ class Pokemon:
             
     def printMoves(self):
         for i in range(len(self.movesList)):
+            if self.movesList[i].moveName==" " or self.movesList[i].moveName=="":
+                continue
             print(f"{i+1}. {self.movesList[i].moveName}")
     def CheckEvolution(self):
         for lvl in range(len(self.lvl.evolutionLvl)):
@@ -77,13 +79,16 @@ class Pokemon:
                 print(f"Cosa!?{self.name} si sta evolvendo!")
                 print("Oops, dimenticato di integrare le evoluzioni RIP")
     def Battle(self,move,counter):
-        if move.moveDmg/4 >=self.stats.hpBar:
+        if int(move.moveDmg)/4 >=self.stats.hpBar:
             self.stats.hpBar=0
             counter+=1
+            print(f"{self.name} è caduto")
         else:
-            self.stats.hpBar=move.moveDmg/4
+            self.stats.hpBar=self.stats.hpBar - (move.moveDmg/4)
         return counter
-starter=[Pokemon("Treeko","Erba",20,20,20,moves=[Move("Azione","normale",20),Move("Semitraglia","erba","35")],level=Level(10,[16,36])),Pokemon("Mudkip","Acqua",20,20,20,moves=[Move("Azione","normale",20),Move("Idropulsar","sacqua","35")],level=Level(10,[16,36]))]
+starter=[Pokemon("Treeko","Erba",20,20,20,moves=[Move("Azione","normale",20),Move("Semitraglia","erba","35")],level=Level(10,[16,36])),Pokemon("Mudkip","Acqua",20,20,20,moves=[Move("Azione","normale",20),Move("Idropulsar","sacqua","35")],level=Level(10,[16,36])),
+         Pokemon("Dialga","Drago Acciaio",220,29999,20,moves=[Move("Fendi tempo","acciao",40000),Move("Dragospiro","drago","35")],level=Level(100,0)),Pokemon("Palkia","Drago Acqua",220,29999,20,moves=[Move("Fendi spazio","acqua",40000),Move("Idropulsar","acqua","35")],level=Level(100,[0,0]))
+         ]
 
 urPkMn=[]
 oppPkMn=[]
@@ -99,20 +104,23 @@ def Lotta():
     for i in range(len(urPkMn)):
         print(f"{userName} manda in campo{urPkMn[i].name}")
         while urPkMn[i].stats.hpBar>0 and oppPkMn[i].stats.hpBar>0:
-            print(f"{urPkMn[i].name} è ansioso di combattere, che mossa vuoi usare?")
-            for m in range(len(urPkMn.movesList)):
-                print(f"{m+1} {urPkMn.movesList[m].moveName}")
-            try:
-                sceltaU=int(input("Che mossa vuoi usare?-> "))-1
-            except:
-                print("Non hai inserito una lore valido!!!!")
-                continue
-            if sceltaU<len(urPkMn.movesList) or sceltaU>len(urPkMn.movesList):
-                continue
-            oppPkMn.Battle(urPkMn[i].movesList[sceltaU],oppKO)
-            oppMove= oppPkMn[i].movesList[random.choice(oppPkMn.movesList)]
-            print(f"Il {oppPkMn[i].name} ha usato {oppMove.moveName} ")
-            urPkMn.Battle(oppMove,userKO)
+            if urPkMn[i].stats.hpBar!=0:
+                print(f"{urPkMn[i].name} è ansioso di combattere, che mossa vuoi usare?")
+                print(f"{urPkMn[i].printMoves()}")
+                try:
+                    sceltaU=int(input("Che mossa vuoi usare?->"))-1
+                except:
+                    print("Non hai inserito una lore valido!!!!")
+                    continue
+                if sceltaU<0 or sceltaU>len(urPkMn[i].movesList):
+                    continue
+            
+            oppPkMn[i].Battle(urPkMn[i].movesList[sceltaU],oppKO)
+            if oppPkMn[i].stats.hpBar!=0:
+                oppMove= random.choice(oppPkMn[i].movesList)
+                print(f"Il {oppPkMn[i].name} ha usato {oppMove.moveName} ")
+                urPkMn[i].Battle(oppMove,userKO)
+            
     if oppKO==len(urPkMn):
         print(f"Ha vinto {userName}")
     else:
@@ -146,7 +154,11 @@ def Menu():
         print("cosa vuoi fare?")
         for i in range(len(opzioni)):
             print(f"{i+1}. {opzioni[i]}")
-        choice=int(input("->"))
+        try:
+            choice=int(input("->"))
+        except:
+            print("errore")
+            continue
         if choice==1:
             Lotta()
         elif choice==2:
@@ -185,7 +197,8 @@ def createPokemon():
     return Pokemon(name,type,hp,attack,defense,moves,lvl)
 userName=input("Qual'è il tuo nome giovane allenotoe/allenatrice?: ")
 nPkmn=int(input(f"Quanti pokemon vuoi {userName}? Max 6:"))
-for i in range(nPkmn):
-    urPkMn.append(createPokemon())
+# for i in range(nPkmn):
+#     urPkMn.append(createPokemon())
+urPkMn.append(Pokemon("Dialga","Drago Acciaio",220,29999,20,moves=[Move("Fendi tempo","acciao",40000),Move("Dragospiro","drago","35")],level=Level(100,[0,0])))
+urPkMn.append(Pokemon("Palkia","Drago Acqua",220,29999,20,moves=[Move("Fendi spazio","acqua",40000),Move("Idropulsar","acqua","35")],level=Level(100,[0,0])))
 Menu()
-            
