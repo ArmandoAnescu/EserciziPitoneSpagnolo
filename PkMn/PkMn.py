@@ -98,19 +98,19 @@ def Lotta():
     print("Inizia la lotta")
     for i in range(len(urPkMn)):
         print(f"{userName} manda in campo{urPkMn[i].name}")
-        while urPkMn[i].stats.hpBar>0 and oppPkMn.stats.hpBar>0:
+        while urPkMn[i].stats.hpBar>0 and oppPkMn[i].stats.hpBar>0:
             print(f"{urPkMn[i].name} è ansioso di combattere, che mossa vuoi usare?")
-            for m in range(len(urPkMn.moveList)):
+            for m in range(len(urPkMn.movesList)):
                 print(f"{m+1} {urPkMn.movesList[m].moveName}")
             try:
                 sceltaU=int(input("Che mossa vuoi usare?-> "))-1
             except:
                 print("Non hai inserito una lore valido!!!!")
                 continue
-            if sceltaU<len(urPkMn.moveList) or sceltaU>len(urPkMn.moveList):
+            if sceltaU<len(urPkMn.movesList) or sceltaU>len(urPkMn.movesList):
                 continue
-            oppPkMn.Battle(urPkMn[i].moveList[sceltaU],oppKO)
-            oppMove= oppPkMn[i].moveList[random.choice(oppPkMn.moveList)]
+            oppPkMn.Battle(urPkMn[i].movesList[sceltaU],oppKO)
+            oppMove= oppPkMn[i].movesList[random.choice(oppPkMn.movesList)]
             print(f"Il {oppPkMn[i].name} ha usato {oppMove.moveName} ")
             urPkMn.Battle(oppMove,userKO)
     if oppKO==len(urPkMn):
@@ -148,7 +148,7 @@ def Menu():
             print(f"{i+1}. {opzioni[i]}")
         choice=int(input("->"))
         if choice==1:
-            Lotta
+            Lotta()
         elif choice==2:
             Visualizza(urPkMn)
         elif choice ==3:
