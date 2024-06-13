@@ -1,7 +1,7 @@
 #to do:
 #Precisione
 #Pokemon predefinit, pokemon già fatti e con moveset predefinito, sistema di scelta
-#Level Up and Evolution System, un sistema degli exp che permette a un PkMn di evolversi al livello predefinito ex:charmeleon in charizard al 36
+#Evolution System, un sistema degli exp che permette a un PkMn di evolversi al livello predefinito ex:charmeleon in charizard al 36
 #
 class Level:
     expAccumulated=0
@@ -31,8 +31,10 @@ class Move:
         self.moveDmg=Dmg
         
 class Stats:
+    hpBar=0
     def __init__(self, HP, Atk, Def):
         self.HP=HP
+        self.hpBar=HP
         self.Atk=Atk
         self.Def=Def
         self.SpAtk=Atk+((Atk*110)/100)
@@ -53,8 +55,7 @@ class Pokemon:
         self.type = type
         self.stats=Stats(HP=hp,Atk=attack,Def=defense)
         self.movesList=moves
-        self.lvl=level
-        
+        self.lvl=level 
     def newMove(self,move):
         if(len(self.movesList)==4):
             print("non puoi più aggiungere mosse")
@@ -75,13 +76,47 @@ class Pokemon:
             if self.lvl.level==self.lvl.evolutionLvl[lvl]:
                 print(f"Cosa!?{self.name} si sta evolvendo!")
                 print("Oops, dimenticato di integrare le evoluzioni RIP")
-
-starter=[Pokemon("Treeko","Erba",20,20,20,moves=[Move("Azione","normale",20),Move("Semitraglia","erba","35")],level=Level(16,[16,36]))]
+    def Battle(self,move,counter):
+        if move.moveDmg/4 >=self.stats.hpBar:
+            self.stats.hpBar=0
+            counter+=1
+        else:
+            self.stats.hpBar=move.moveDmg/4
+        return counter
+starter=[Pokemon("Treeko","Erba",20,20,20,moves=[Move("Azione","normale",20),Move("Semitraglia","erba","35")],level=Level(10,[16,36])),Pokemon("Mudkip","Acqua",20,20,20,moves=[Move("Azione","normale",20),Move("Idropulsar","sacqua","35")],level=Level(10,[16,36]))]
 
 urPkMn=[]
 oppPkMn=[]
 opzioni=["Lotta","Vedi i miei Pkmn","Aggiungi Pkmn","RimuoviPkmn","Esci"]
 
+def Lotta():
+    import random
+    userKO=0
+    oppKO=0 
+    for i in range(len(urPkMn)):
+        oppPkMn.append(starter[i])
+    print("Inizia la lotta")
+    for i in range(len(urPkMn)):
+        print(f"{userName} manda in campo{urPkMn[i].name}")
+        while urPkMn[i].stats.hpBar>0 and oppPkMn.stats.hpBar>0:
+            print(f"{urPkMn[i].name} è ansioso di combattere, che mossa vuoi usare?")
+            for m in range(len(urPkMn.moveList)):
+                print(f"{m+1} {urPkMn.movesList[m].moveName}")
+            try:
+                sceltaU=int(input("Che mossa vuoi usare?-> "))-1
+            except:
+                print("Non hai inserito una lore valido!!!!")
+                continue
+            if sceltaU<len(urPkMn.moveList) or sceltaU>len(urPkMn.moveList):
+                continue
+            oppPkMn.Battle(urPkMn[i].moveList[sceltaU],oppKO)
+            oppMove= oppPkMn[i].moveList[random.choice(oppPkMn.moveList)]
+            print(f"Il {oppPkMn[i].name} ha usato {oppMove.moveName} ")
+            urPkMn.Battle(oppMove,userKO)
+    if oppKO==len(urPkMn):
+        print(f"Ha vinto {userName}")
+    else:
+        print("Ha vinto l'avversario")
 def Visualizza(lista):
     for i in range(len(lista)):
         print(f"{i+1}. {lista[i].name} {lista[i].type}")
@@ -89,10 +124,11 @@ def Visualizza(lista):
         print(f"{lista[i].printMoves()}")
         
 def RimuoviPkMn(lista):
+    
     print("ATTENZIONE! Sei sicuro di voler liberare questo pokemon? L'esperienza accumulata verra persa insieme al pokemon y/n:")
     scelta=input()
     if scelta=="y" or scelta=="si" or scelta=="yes" or scelta=="sì":
-        remove=input("inserisci il nome del pokemon da rimuovere:")
+        remove=input("Inserisci il nome del pokemon da rimuovere:")
         for i in lista:
             if i.name==remove:
                 lista.remove(i)
@@ -112,7 +148,7 @@ def Menu():
             print(f"{i+1}. {opzioni[i]}")
         choice=int(input("->"))
         if choice==1:
-            print("Scusa funzione non disponibile")
+            Lotta
         elif choice==2:
             Visualizza(urPkMn)
         elif choice ==3:
@@ -147,7 +183,8 @@ def createPokemon():
     evolvl=int(input())
     lvl=Level(level,evolvl)
     return Pokemon(name,type,hp,attack,defense,moves,lvl)
-nPkmn=int(input("Quanti pokemon vuoi? Max 6:"))
+userName=input("Qual'è il tuo nome giovane allenotoe/allenatrice?: ")
+nPkmn=int(input(f"Quanti pokemon vuoi {userName}? Max 6:"))
 for i in range(nPkmn):
     urPkMn.append(createPokemon())
 Menu()
