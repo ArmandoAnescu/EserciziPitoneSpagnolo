@@ -84,7 +84,7 @@ class Pokemon:
             print(f"{self.name} è caduto")
             return True
         else:
-            self.stats.hpBar-= move.moveDmg/4
+            self.stats.hpBar=self.stats.hpBar- move.moveDmg/4
             return False
         return counter
 starter=[Pokemon("Treeko","Erba",20,20,20,moves=[Move("Azione","normale",20),Move("Semitraglia","erba","35")],level=Level(10,[16,36])),Pokemon("Mudkip","Acqua",20,20,20,moves=[Move("Azione","normale",20),Move("Idropulsar","sacqua","35")],level=Level(10,[16,36])),
@@ -107,8 +107,8 @@ def Lotta():
     print("Inizia la lotta")
     while userUsedPkMn !=6 and oppUsedPkMn!=6:
         print(f"{userName} manda in campo{urPkMn[userUsedPkMn].name}")
-        while urPkMn[i].stats.hpBar > 0 and oppPkMn[i].stats.hpBar > 0:
-            if urPkMn[i].stats.hpBar != 0:
+        while True:
+            if urPkMn[userUsedPkMn].stats.hpBar != 0:a
                 print(f"{urPkMn[userUsedPkMn].name} è ansioso di combattere, che mossa vuoi usare?")
                 print(f"{urPkMn[userUsedPkMn].printMoves()}")
                 try:
@@ -125,9 +125,11 @@ def Lotta():
             if oppPkMn[oppUsedPkMn].stats.hpBar != 0:
                 oppMove = random.choice(oppPkMn[oppUsedPkMn].movesList)
                 print(f"Il {oppPkMn[oppUsedPkMn].name} ha usato {oppMove.moveName} ")
-                if urPkMn[oppUsedPkMn].Battle(oppMove):
+                if urPkMn[userUsedPkMn].Battle(oppMove):
                     userKO += 1
                     userUsedPkMn+=1
+            if urPkMn[i].stats.hpBar > 0 and oppPkMn[i].stats.hpBar > 0:
+                break;
     if oppKO == len(urPkMn):
         print(f"Ha vinto {userName}")
     else:
