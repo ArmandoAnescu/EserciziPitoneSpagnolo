@@ -76,15 +76,16 @@ class Pokemon:
     def CheckEvolution(self):
         for lvl in range(len(self.lvl.evolutionLvl)):
             if self.lvl.level==self.lvl.evolutionLvl[lvl]:
-                print(f"Cosa!?{self.name} si sta evolvendo!")
+                print(f"Cosa!? {self.name} si sta evolvendo!")
                 print("Oops, dimenticato di integrare le evoluzioni RIP")
-    def Battle(self,move,counter):
+    def Battle(self,move):
         if int(move.moveDmg)/4 >=self.stats.hpBar:
             self.stats.hpBar=0
-            counter+=1
             print(f"{self.name} è caduto")
+            return True
         else:
-            self.stats.hpBar=self.stats.hpBar - (move.moveDmg/4)
+            self.stats.hpBar-= move.moveDmg/4
+            return False
         return counter
 starter=[Pokemon("Treeko","Erba",20,20,20,moves=[Move("Azione","normale",20),Move("Semitraglia","erba","35")],level=Level(10,[16,36])),Pokemon("Mudkip","Acqua",20,20,20,moves=[Move("Azione","normale",20),Move("Idropulsar","sacqua","35")],level=Level(10,[16,36])),
          Pokemon("Dialga","Drago Acciaio",220,29999,20,moves=[Move("Fendi tempo","acciao",40000),Move("Dragospiro","drago","35")],level=Level(100,0)),Pokemon("Palkia","Drago Acqua",220,29999,20,moves=[Move("Fendi spazio","acqua",40000),Move("Idropulsar","acqua","35")],level=Level(100,[0,0]))
@@ -97,31 +98,37 @@ opzioni=["Lotta","Vedi i miei Pkmn","Aggiungi Pkmn","RimuoviPkmn","Esci"]
 def Lotta():
     import random
     userKO=0
-    oppKO=0 
+    oppKO=0
+    userUsedPkMn=0;
+    oppUsedPkMn=0;
+    oppPkMn.clear()
     for i in range(len(urPkMn)):
         oppPkMn.append(starter[i])
     print("Inizia la lotta")
-    for i in range(len(urPkMn)):
-        print(f"{userName} manda in campo{urPkMn[i].name}")
-        while urPkMn[i].stats.hpBar>0 and oppPkMn[i].stats.hpBar>0:
-            if urPkMn[i].stats.hpBar!=0:
-                print(f"{urPkMn[i].name} è ansioso di combattere, che mossa vuoi usare?")
-                print(f"{urPkMn[i].printMoves()}")
+    while userUsedPkMn !=6 and oppUsedPkMn!=6:
+        print(f"{userName} manda in campo{urPkMn[userUsedPkMn].name}")
+        while urPkMn[i].stats.hpBar > 0 and oppPkMn[i].stats.hpBar > 0:
+            if urPkMn[i].stats.hpBar != 0:
+                print(f"{urPkMn[userUsedPkMn].name} è ansioso di combattere, che mossa vuoi usare?")
+                print(f"{urPkMn[userUsedPkMn].printMoves()}")
                 try:
-                    sceltaU=int(input("Che mossa vuoi usare?->"))-1
+                    sceltaU = int(input("Che mossa vuoi usare?->")) - 1
                 except:
                     print("Non hai inserito una lore valido!!!!")
                     continue
-                if sceltaU<0 or sceltaU>len(urPkMn[i].movesList):
+                if sceltaU < 0 or sceltaU > len(urPkMn[i].movesList):
                     continue
-            
-            oppPkMn[i].Battle(urPkMn[i].movesList[sceltaU],oppKO)
-            if oppPkMn[i].stats.hpBar!=0:
-                oppMove= random.choice(oppPkMn[i].movesList)
-                print(f"Il {oppPkMn[i].name} ha usato {oppMove.moveName} ")
-                urPkMn[i].Battle(oppMove,userKO)
-            
-    if oppKO==len(urPkMn):
+
+            if oppPkMn[userUsedPkMn].Battle(urPkMn[userUsedPkMn].movesList[sceltaU]):
+                oppKO += 1
+                oppUsedPkMn+=1
+            if oppPkMn[oppUsedPkMn].stats.hpBar != 0:
+                oppMove = random.choice(oppPkMn[oppUsedPkMn].movesList)
+                print(f"Il {oppPkMn[oppUsedPkMn].name} ha usato {oppMove.moveName} ")
+                if urPkMn[oppUsedPkMn].Battle(oppMove):
+                    userKO += 1
+                    userUsedPkMn+=1
+    if oppKO == len(urPkMn):
         print(f"Ha vinto {userName}")
     else:
         print("Ha vinto l'avversario")
