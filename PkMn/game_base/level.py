@@ -6,7 +6,7 @@ class Level:
         self.evolutionLvl=lvlEvo
     def CalcolaLevelEsp(self,lvlDefeated):
         import math
-        expReceived=int(math.pow(lvlDefeated^3)/12)
+        expReceived=int(math.pow(lvlDefeated,3)/12)
         expNextLvl=int (((math.pow(self.level,3)*4)/5))#calcola l'esp per andare al next level
         self.expAccumulated +=expReceived
         if expNextLvl== self.expAccumulated:

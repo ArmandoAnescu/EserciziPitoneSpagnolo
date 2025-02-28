@@ -1,3 +1,8 @@
+from game_base.level import Level
+from game_base.move import Move
+from game_base.stats import Stats
+
+
 class Pokemon:
 
     movesList = []

@@ -1,3 +1,57 @@
-"pokemon" :{
+{
+        "pokemon": [
+                {
+                        "id":"0001",
+                        "name":"Bulbasaur",
+                        "type":"Erba",
+                        "level": "5",
+                        "moves": [
+                                "Tackle",
+                                "Growl"
+                        ],
+                        "stats": {
+                                "HP": "",
+                                "ATK":"",
+                                "Sp.Atk": "",
+                                "Sp.Def": "",
+                                "Speed": ""
+                        }
 
+                },
+                {
+                        "id": "0004",
+                        "name": "Charmander",
+                        "type": "Fuoco",
+                        "level": "5",
+                        "moves": [
+                                "Scratch",
+                                "Growl"
+                        ],
+                        "stats": {
+                                "HP": "",
+                                "ATK": "",
+                                "Sp.Atk": "",
+                                "Sp.Def": "",
+                                "Speed": ""
+                        }
+                },
+                {
+                        "id": "0007",
+                        "name": "Squirtle",
+                        "type": "Acqua",
+                        "level": "5",
+                        "moves": [
+                                "Tackle",
+                                "Tail Whip"
+                        ],
+                        "stats": {
+                                "HP": "",
+                                "ATK": "",
+                                "Sp.Atk": "",
+                                "Sp.Def": "",
+                                "Speed": ""
+                        }
+                }
+
+        ]
 }

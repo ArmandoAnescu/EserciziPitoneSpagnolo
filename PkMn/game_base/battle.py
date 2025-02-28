@@ -1,4 +1,4 @@
-def battle(playerPkmn,oppPkmn):
+def battle(playerPkmn,oppPkmn,userName):
     import random
     userKO=0
     oppKO=0
@@ -11,7 +11,7 @@ def battle(playerPkmn,oppPkmn):
     while userUsedPkMn !=6 and oppUsedPkMn!=6:
         print(f"{userName} manda in campo{playerPkmn[userUsedPkMn].name}")
         while True:
-            if playerPkmn[userUsedPkMn].stats.hpBar != 0:a
+            if playerPkmn[userUsedPkMn].stats.hpBar != 0:
                 print(f"{playerPkmn[userUsedPkMn].name} è ansioso di combattere, che mossa vuoi usare?")
                 print(f"{playerPkmn[userUsedPkMn].printMoves()}")
                 try:
@@ -24,7 +24,7 @@ def battle(playerPkmn,oppPkmn):
 
             if oppPkmn[userUsedPkMn].Battle(playerPkmn[userUsedPkMn].movesList[sceltaU]):
                 oppKO += 1
-                oppUsedPkMn+=1
+                oppUsedPkMn +=1
             if oppPkmn[oppUsedPkMn].stats.hpBar != 0:
                 oppMove = random.choice(oppPkmn[oppUsedPkMn].movesList)
                 print(f"Il {oppPkmn[oppUsedPkMn].name} ha usato {oppMove.moveName} ")
